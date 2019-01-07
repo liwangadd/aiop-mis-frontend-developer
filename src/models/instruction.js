@@ -7,6 +7,7 @@ export default {
   state: {
     submitting: false,
     result: '',
+    imageResult: []
   },
 
   effects: {
@@ -155,6 +156,38 @@ export default {
       else message.success('调用成功');
       yield put({ type: 'changeResult', payload: response }); // 更新当前调用结果
     },
+    *invokeTargetDetection({ payload }, { call, put }) {
+      yield put({ type: 'changeSubmitting', payload: true });
+      const response = yield call(instruction.invokeTargetDetection, payload);
+      yield put({ type: 'changeSubmitting', payload: false });
+      if (response.error_code !== undefined) message.error(response.error_msg);
+      else message.success('调用成功');
+      yield put({ type: 'changeImageResult', payload: `data:image;base64,${response.img}` });
+    },
+    *invokeFaceDetection({ payload }, { call, put }) {
+      yield put({ type: 'changeSubmitting', payload: true });
+      const response = yield call(instruction.invokeFaceDetection, payload);
+      yield put({ type: 'changeSubmitting', payload: false });
+      if (response.error_code !== undefined) message.error(response.error_msg);
+      else message.success('调用成功');
+      yield put({ type: 'changeImageResult', payload: response });
+    },
+    *invokeFuzzyReduction({ payload }, { call, put }) {
+      yield put({ type: 'changeSubmitting', payload: true });
+      const response = yield call(instruction.invokeFuzzyReduction, payload);
+      yield put({ type: 'changeSubmitting', payload: false });
+      if (response.error_code !== undefined) message.error(response.error_msg);
+      else message.success('调用成功');
+      yield put({ type: 'changeImageResult', payload: response });
+    },
+    *invokeOcclusionReduction({ payload }, { call, put }) {
+      yield put({ type: 'changeSubmitting', payload: true });
+      const response = yield call(instruction.invokeOcclusionReduction, payload);
+      yield put({ type: 'changeSubmitting', payload: false });
+      if (response.error_code !== undefined) message.error(response.error_msg);
+      else message.success('调用成功');
+      yield put({ type: 'changeImageResult', payload: response });
+    },
   },
 
   reducers: {
@@ -163,6 +196,9 @@ export default {
     },
     changeResult(state, { payload }) {
       return { ...state, result: payload };
+    },
+    changeImageResult(state, { payload }) {
+      return { ...state, imageResult: payload };
     },
   },
 };

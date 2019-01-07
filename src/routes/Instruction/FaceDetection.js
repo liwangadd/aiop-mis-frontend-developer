@@ -70,7 +70,7 @@ export default class FaceDetection extends React.Component {
             (err) => {
                 if (!err) {
                     const pureFace = this.pureBase64(this.state.imageUrl);
-                    this.props.dispatch({ type: 'instruction/invokeFaceRecover', payload: { face: pureFace } });
+                    this.props.dispatch({ type: 'instruction/invokeFaceDetection', payload: { face: pureFace } });
                 }
             }
         );

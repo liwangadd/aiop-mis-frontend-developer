@@ -69,8 +69,8 @@ export default class OcclusionReduction extends React.Component {
         this.props.form.validateFields({ force: true },
             (err) => {
                 if (!err) {
-                    const pureFace = this.pureBase64(this.state.imageUrl);
-                    this.props.dispatch({ type: 'instruction/invokeFaceRecover', payload: { face: pureFace } });
+                    const pureImg = this.pureBase64(this.state.imageUrl);
+                    this.props.dispatch({ type: 'instruction/invokeOcclusionReduction', payload: { img: pureImg } });
                 }
             }
         );

@@ -144,3 +144,35 @@ export async function invokeFaceSim(params) {
     body: params,
   });
 }
+
+export async function invokeTargetDetection(params) {
+  return request('/restapi/image/v1/target_detection', {
+    method: 'POST',
+    headers: { ACCESS_TOKEN },
+    body: params,
+  })
+}
+
+export async function invokeFaceDetection(params) {
+  return request('/restapi/image/v1/face_detection', {
+    method: 'POST',
+    headers: { ACCESS_TOKEN },
+    body: params,
+  })
+}
+
+export async function invokeFuzzyReduction(params) {
+  return request('/restapi/image/v1/fuzzy_reduction', {
+    method: 'POST',
+    headers: { ACCESS_TOKEN },
+    body: params,
+  })
+}
+
+export async function invokeOcclusionReduction(params) {
+  return request('/restapi/image/v1/occlusion_reduction', {
+    method: 'POST',
+    headers: { ACCESS_TOKEN },
+    body: params,
+  })
+}
